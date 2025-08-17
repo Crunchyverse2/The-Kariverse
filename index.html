@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WELCOME</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+<!-- LOADING SCREEN -->
+<div id="loading-screen">
+    <div class="cd-spin"></div>
+    <div class="loader-text">LOADING...</div>
+</div>
+
+<!-- HEADER -->
+<header id="header">
+    <h1 id="welcome-text">WELCOME</h1>
+    <nav id="nav-buttons">
+        <span class="nav-item" data-page="home">HOME</span>
+        <span class="nav-item" data-page="about">ABOUT</span>
+        <span class="nav-item" data-page="music">MUSIC</span>
+        <span class="nav-item" data-page="gallery">GALLERY</span>
+        <span class="nav-item" data-page="chat">CHAT</span>
+        <span class="nav-item" data-page="contact">CONTACT</span>
+        <span class="nav-item" data-page="socials">SOCIALS</span>
+    </nav>
+</header>
+
+<!-- LOGIN / PROFILE -->
+<div id="login-profile">
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
+    <button id="login-btn">Log In</button>
+    <button id="signup-btn">Sign Up</button>
+    <img id="top-pfp" src="pfp-placeholder.png" alt="Profile Picture">
+    <div id="status-indicator" class="status-offline"></div>
+</div>
+
+<!-- MAIN CONTENT -->
+<main>
+    <!-- home page -->
+    <section id="page-home" class="page active">
+        <h2>HOME</h2>
+        <div id="updates-feed"></div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="page-about" class="page">
+        <h2>ABOUT</h2>
+        <p>
+            Kari, formerly known as <a href="https://www.instagram.com/crunchyverse/" target="_blank">Crunchyverse</a>, first started seriously exploring music around 2022–2023. 
+            Growing up, he wasn’t heavily exposed to music—he only had a Samsung Galaxy S5 and limited internet access. Early inspirations included Marshmello and Alan Walker from a mobile game, but these had little impact initially.
+        </p>
+        <p>
+            In late 2023, Kari began collaborating with friends Pluto and Haylocon in their own version of “Song Wars.” His first track, <a href="https://soundcloud.com/crunchyverse/self-destruct-madness/s-GdVUuJWBfaj?si=6b090fb682e34d8681cf3e659da09cdb" target="_blank">s3lf-destruction</a>, was a rough breakcore experiment. Soon after, he recorded <a href="https://soundcloud.com/crunchyverse/hands-up-3-hyperspeed/s-7yexample" target="_blank">Hands Up!</a> and <a href="https://soundcloud.com/crunchyverse/heartsunk-3-hyperspeed/s-KK7cMGXtzEL?si=9758f8faf602490a92f509297ee64614&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing" target="_blank">Heartsunk</a>, exploring experimental production techniques.
+        </p>
+        <p>
+            During the “Paranoid Era,” Kari embraced post-punk, alt-rock, and shoegaze influences, releasing tracks like <a href="https://soundcloud.com/crunchyverse/haunt-me/s-1Nrw7QVupbt?si=199ab6fc00274798b98560c3bf946006&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing" target="_blank">Haunt Me</a> and the <a href="https://soundcloud.com/crunchyverse/vampire/s-yb7N24zAeH6?si=60c4c77bf487444e891eaf2e857c26ab&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing" target="_blank">Vampire</a> demo. Visual experimentation included black-and-white clothing and gothic accessories, which became a humorous inside joke among peers.
+        </p>
+        <p>
+            In 2024, Kari met Jordan (stage name Kami, formerly Sensei Jay), and together with Pluto, they formed the collective <strong>TMR (The Midnight Riders)</strong>. Collaborative releases like <a href="https://open.spotify.com/track/26A0ZzmXM1XGyMDINUhHXr?si=37944d15188b4641" target="_blank">Stuck on You</a>, <a href="https://soundcloud.com/crunchyverse/ill-make-you-mine?si=63304349944c4ba9b9490e25c70bfc3d&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing" target="_blank">I’ll Make You Mine</a>, and <a href="https://open.spotify.com/track/4qwy7faENqIZvmOVToEqnr?si=1d95312e6030455d" target="_blank">2:30 AM</a> showcased his strengths as both a singer and rapper.
+        </p>
+        <p>
+            By March 2025, Kari released his first full-length album, <strong>Karikore</strong>, blending house, UK garage, new jazz, and more. Tracks like <a href="https://open.spotify.com/track/6rfCmjW8mzxw99fCDBLpc9?si=72f4c6a6d92041b8" target="_blank">Dy Wna Fall 4 Me</a> and <a href="https://open.spotify.com/track/7xgUAKzNpuL1LchBKBvxvS?si=b3a1244d23fb45a5" target="_blank">Y U Playin / Hoop Dreams</a> highlight his versatility and embrace of underground influences like Jaydes.
+        </p>
+        <p>
+            Currently, Kari is preparing his second album, <strong>Bloom</strong>, aiming to expand his sound while maintaining his distinctive Y2K-inspired aesthetic. With TMR and collaborators, he continues to push boundaries, blending genres and creating innovative music.
+        </p>
+    </section>
+    >
+    <!-- MUSIC PAGE -->
+    <section id="page-music" class="page">
+      <h2>MUSIC</h2>
+      <div id="music-links" style="margin-top:15px;">
+        <a href="https://open.spotify.com/artist/7GG0psjHrLABB4yQkdnrTY" target="_blank">Spotify</a> |
+        <a href="https://soundcloud.com/crunchyverse" target="_blank">SoundCloud</a> |
+        <a href="https://music.apple.com/us/artist/kari/1780686767" target="_blank">Apple Music</a> |
+        <a href="https://www.bandlab.com/crunchyverse" target="_blank">BandLab</a>
+      </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section id="page-gallery" class="page">
+        <h2>GALLERY</h2>
+        <p>Artwork and images float around like an old Flash site ✨</p>
+    </section>
+
+    <!-- CHAT -->
+    <section id="page-chat" class="page">
+        <h2>CHATROOM</h2>
+        <div id="chat-wrapper"></div>
+
+        <!-- Guest dropdown -->
+        <select id="guestPremessages">
+          <option value="">-- Choose a premade message --</option>
+          <option value="Hello!">Hello!</option>
+          <option value="How are you?">How are you?</option>
+          <option value="Good game!">Good game!</option>
+          <option value="Nice to meet you!">Nice to meet you!</option>
+        </select>
+
+        <!-- Chat input -->
+        <input type="text" id="chat-input" placeholder="Type a message...">
+        <button id="chat-send">Send</button>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="page-contact" class="page">
+      <h2 id="contact-header">
+        <span data-letter="C">C</span>
+        <span data-letter="O">O</span>
+        <span data-letter="N">N</span>
+        <span data-letter="T">T</span>
+        <span data-letter="A">A</span>
+        <span data-letter="C">C</span>
+        <span data-letter="T">T</span>
+      </h2>
+
+      <div class="contact-container">
+        <!-- Contact form -->
+        <form class="contact-form" action="https://formspree.io/f/mjkodgep" method="POST">
+          <label for="email"><i class="fas fa-envelope"></i> Your Email</label>
+          <input type="email" name="email" id="email" placeholder="you@example.com" required>
+
+          <label for="message"><i class="fas fa-comment-dots"></i> Your Message</label>
+          <textarea name="message" id="message" placeholder="Type your message here..." required></textarea>
+
+          <button type="submit" class="send-btn">SEND</button>
+        </form>
+
+        <!-- Extra contact info -->
+        <div class="contact-info">
+          <h3>Other Ways to Reach Me</h3>
+          <p><i class="fas fa-paper-plane"></i> <a href="mailto:crunchtoonz@gmail.com">crunchtoonz@gmail.com</a></p>
+          <p><i class="fab fa-youtube"></i> <a href="https://www.youtube.com/@crunchyverseee" target="_blank">YouTube</a></p>
+          <p><i class="fab fa-instagram"></i> <a href="https://www.instagram.com/crunchyverse/" target="_blank">Instagram</a></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOCIALS -->
+    <section id="page-socials" class="page">
+        <h2>SOCIALS</h2>
+        <ul>
+            <li><a href="https://www.instagram.com/crunchyverse/" target="_blank">Instagram</a></li>
+        </ul>
+    </section>
+
+    <!-- ACCOUNT -->
+    <section id="page-account" class="page">
+        <h2>ACCOUNT</h2>
+        <p>Username: <span id="account-username"></span></p>
+        <input type="text" id="account-bio" placeholder="Your Bio (max 100 chars)">
+        <input type="file" id="account-pfp-upload" accept="image/*"><br>
+        <select id="account-status">
+            <option value="online">Online</option>
+            <option value="away">Away</option>
+            <option value="offline">Offline</option>
+        </select><br><br>
+        <button id="change-username">Change Username</button>
+        <button id="change-password">Change Password</button><br><br>
+        <button id="save-account">Save</button>
+        <button id="sign-out">Sign Out</button>
+
+        <div class="friends-list">
+            <h3>Friends</h3>
+            <ul id="friends-ul"></ul>
+            <button id="add-friend-btn">Add Friend</button>
+        </div>
+    </section>
+
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>

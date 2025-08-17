@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kari Music Simon Says 🎵</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+    body {
+        margin: 0;
+        font-family: 'Press Start 2P', cursive;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: linear-gradient(135deg, #ff6ec7, #8338ec);
+        color: #fff;
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+    h1 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+        text-shadow: 0 0 10px #fff, 0 0 20px #ff6ec7;
+    }
+
+    #game-container {
+        display: grid;
+        grid-template-columns: repeat(3, 100px);
+        grid-gap: 20px;
+        margin-bottom: 20px;
+    }
+
+    .tile {
+        width: 100px;
+        height: 100px;
+        background: #4a148c;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 2.5rem;
+        cursor: pointer;
+        border-radius: 15px;
+        transition: 0.2s;
+        box-shadow: 0 0 10px #8338ec, 0 0 20px #ff6ec7;
+        user-select: none;
+    }
+
+    .tile.active {
+        animation: flash 0.5s ease-in-out;
+        background: #ff6ec7;
+        transform: scale(1.2);
+        box-shadow: 0 0 20px #fff, 0 0 30px #ff6ec7;
+    }
+
+    @keyframes flash {
+        0%, 100% { transform: scale(1); background: #4a148c; }
+        50% { transform: scale(1.3); background: #ff6ec7; }
+    }
+
+    #status {
+        font-size: 1rem;
+        margin-top: 10px;
+        text-shadow: 0 0 5px #fff;
+    }
+
+    #score-board {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+        text-shadow: 0 0 5px #fff;
+    }
+
+    #timer {
+        font-size: 1rem;
+        margin-bottom: 20px;
+        text-shadow: 0 0 5px #fff;
+    }
+
+</style>
+</head>
+<body>
+
+<h1>🎵 Kari Music Simon Says 🎵</h1>
+<div id="score-board">Score: 0</div>
+<div id="timer">Time: 0s</div>
+<div id="game-container"></div>
+<div id="status">Watch the sequence!</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const gameContainer = document.getElementById('game-container');
+    const status = document.getElementById('status');
+    const scoreBoard = document.getElementById('score-board');
+    const timerEl = document.getElementById('timer');
+
+    const tilesEmojis = ['🎵','🎶','🎤','🎧','🎹','🥁'];
+    let sequence = [];
+    let playerSequence = [];
+    let clickable = false;
+    let score = 0;
+    let timer = 0;
+    let timerInterval;
+
+    // Create tile elements
+    const tiles = [];
+    tilesEmojis.forEach(emoji => {
+        const tile = document.createElement('div');
+        tile.classList.add('tile');
+        tile.textContent = emoji;
+        tile.addEventListener('click', () => handleTileClick(emoji, tile));
+        gameContainer.appendChild(tile);
+        tiles.push(tile);
+    });
+
+    function startTimer() {
+        timer = 0;
+        timerEl.textContent = `Time: 0s`;
+        clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            timer++;
+            timerEl.textContent = `Time: ${timer}s`;
+        }, 1000);
+    }
+
+    function stopTimer() {
+        clearInterval(timerInterval);
+    }
+
+    function flashTile(tile) {
+        return new Promise(resolve => {
+            tile.classList.add('active');
+            setTimeout(() => {
+                tile.classList.remove('active');
+                setTimeout(resolve, 200);
+            }, 600);
+        });
+    }
+
+    async function playSequence() {
+        clickable = false;
+        startTimer();
+        for (let emoji of sequence) {
+            const tile = tiles.find(t => t.textContent === emoji);
+            await flashTile(tile);
+        }
+        clickable = true;
+        status.textContent = "Your turn!";
+    }
+
+    function handleTileClick(emoji, tile) {
+        if(!clickable) return;
+
+        playerSequence.push(emoji);
+        tile.classList.add('active');
+        setTimeout(() => tile.classList.remove('active'), 300);
+
+        const index = playerSequence.length - 1;
+        if(playerSequence[index] !== sequence[index]){
+            status.textContent = `Wrong! Game Over 😢`;
+            stopTimer();
+            score = 0;
+            sequence = [];
+            playerSequence = [];
+            scoreBoard.textContent = `Score: ${score}`;
+            setTimeout(startRound, 1500);
+            return;
+        }
+
+        if(playerSequence.length === sequence.length){
+            score++;
+            scoreBoard.textContent = `Score: ${score}`;
+            status.textContent = "Correct! Next round...";
+            playerSequence = [];
+            stopTimer();
+            setTimeout(startRound, 1000);
+        }
+    }
+
+    function startRound() {
+        const randomTile = tilesEmojis[Math.floor(Math.random() * tilesEmojis.length)];
+        sequence.push(randomTile);
+        status.textContent = "Watch the sequence!";
+        playSequence();
+    }
+
+    // Start first round
+    startRound();
+});
+</script>
+
+</body>
+</html>
