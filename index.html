@@ -5,14 +5,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>WELCOME</title>
 <link rel="stylesheet" href="style.css">
+<link rel="icon" href="tab-icon.png" type="image/png">
 </head>
 <body>
 
+<canvas id="code-rain"></canvas>
+<div id="scanlines"></div>
+
+<div class="window">
+  <div class="title-bar">
+    <span class="title">look at this kekeke</span>
+    <button class="close-btn">✖</button>
+  </div>
+  <div class="window-content">
+    <p>Bloom coming soon!.</p>
+  </div>
+</div>
 
 <!-- LOADING SCREEN -->
 <div id="loading-screen">
-    <div class="cd-spin"></div>
-    <div class="loader-text">LOADING...</div>
+  <img src="cd.png" alt="Spinning CD" id="cd-spin">
+  <div class="loader-text">LOADING...</div>
 </div>
 
 <!-- HEADER -->
@@ -44,7 +57,86 @@
     <!-- home page -->
     <section id="page-home" class="page active">
         <h2>HOME</h2>
-        <div id="updates-feed"></div>
+        <div id="updates-feed">
+            <div class="update-card">
+                <h3>08/18/2025</h3>
+                <p>✅ Login/profile system is working with friends list.</p>
+                <p>✅ Navigation buttons connect to all sections.</p>
+                <p>✅ Fixed style.css by removing duplicate loader, flicker, and font rules.</p>
+                <p>✅ Rebuilt contact page form styling for consistent dark aesthetic.</p>
+                <p>✅ Gallery hover effects updated with smooth scale/rotate animation.</p>
+            </div>
+
+            <div class="update-card">
+                <h3>08/18/2025 (Misc Fixes)</h3>
+                <p>🎨 Fixed scanlines overlay and cursor styling.</p>
+                <p>🖱️ Confirmed cursor hotspot coordinates work properly.</p>
+                <p>📱 Prepared groundwork for mobile-responsive adjustments (media queries / JS detection).</p>
+            </div>
+
+            <div class="update-card">
+                <h3>08/16/2025</h3>
+                <p>🎶 Added music page with links to Spotify, SoundCloud, Apple Music, BandLab.</p>
+                <p>🖼️ Uploaded first gallery images.</p>
+            </div>
+
+            <div class="update-card">
+                <h3>08/14/2025</h3>
+                <p>🚀 Homepage loading screen with spinning CD animation complete.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- MUSIC PAGE -->
+    <section id="page-music" class="page">
+        <h2>MUSIC</h2>
+        <div id="music-links" style="margin-top:15px;">
+            <a href="https://open.spotify.com/artist/7GG0psjHrLABB4yQkdnrTY" target="_blank">Spotify</a> |
+            <a href="https://soundcloud.com/crunchyverse" target="_blank">SoundCloud</a> |
+            <a href="https://music.apple.com/us/artist/kari/1780686767" target="_blank">Apple Music</a> |
+            <a href="https://www.bandlab.com/crunchyverse" target="_blank">BandLab</a>
+        </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section id="page-gallery" class="page">
+        <h2>GALLERY</h2>
+        <div id="gallery-container">
+            <img src="images/pic1web.png" class="gallery-img" alt="Artwork 1">
+            <img src="images/pic2web.png" class="gallery-img" alt="Artwork 2">
+            <img src="images/album1.png" class="gallery-img" alt="Artwork 3">
+            <img src="images/karikorelogo2.png" class="gallery-img" alt="Artwork 4">
+        </div>
+    </section>
+
+    <!-- CHAT -->
+    <section id="page-chat" class="page">
+        <h2>CHATROOM</h2>
+        <div id="chat-wrapper"></div>
+
+        <!-- Guest dropdown -->
+        <select id="guestPremessages">
+            <option value="">-- Choose a premade message --</option>
+            <option value="haii">haii</option>
+            <option value="yo">yo</option>
+            <option value="wsp?">wsp?</option>
+            <option value="lol">lol</option>
+            <option value="LMAO">LMAO</option>
+            <option value="wth">wth</option>
+            <option value="bruh">bruh</option>
+            <option value=":3">:3</option>
+            <option value="no">no</option>
+            <option value="yes">yes</option>
+            <option value="omg">omg</option>
+            <option value="hehe">hehe</option>
+            <option value="oof">oof</option>
+            <option value="hey">hey</option>
+            <option value="sup">sup</option>
+        </select>
+
+        <!-- Chat input -->
+        <input type="text" id="chat-input" placeholder="Type a message...">
+        <button id="chat-send">Send</button>
     </section>
 
     <!-- ABOUT -->
@@ -70,75 +162,29 @@
             Currently, Kari is preparing his second album, <strong>Bloom</strong>, aiming to expand his sound while maintaining his distinctive Y2K-inspired aesthetic. With TMR and collaborators, he continues to push boundaries, blending genres and creating innovative music.
         </p>
     </section>
-    >
-    <!-- MUSIC PAGE -->
-    <section id="page-music" class="page">
-      <h2>MUSIC</h2>
-      <div id="music-links" style="margin-top:15px;">
-        <a href="https://open.spotify.com/artist/7GG0psjHrLABB4yQkdnrTY" target="_blank">Spotify</a> |
-        <a href="https://soundcloud.com/crunchyverse" target="_blank">SoundCloud</a> |
-        <a href="https://music.apple.com/us/artist/kari/1780686767" target="_blank">Apple Music</a> |
-        <a href="https://www.bandlab.com/crunchyverse" target="_blank">BandLab</a>
-      </div>
-    </section>
-
-    <!-- GALLERY -->
-    <section id="page-gallery" class="page">
-        <h2>GALLERY</h2>
-        <p>Artwork and images float around like an old Flash site ✨</p>
-    </section>
-
-    <!-- CHAT -->
-    <section id="page-chat" class="page">
-        <h2>CHATROOM</h2>
-        <div id="chat-wrapper"></div>
-
-        <!-- Guest dropdown -->
-        <select id="guestPremessages">
-          <option value="">-- Choose a premade message --</option>
-          <option value="Hello!">Hello!</option>
-          <option value="How are you?">How are you?</option>
-          <option value="Good game!">Good game!</option>
-          <option value="Nice to meet you!">Nice to meet you!</option>
-        </select>
-
-        <!-- Chat input -->
-        <input type="text" id="chat-input" placeholder="Type a message...">
-        <button id="chat-send">Send</button>
-    </section>
 
     <!-- CONTACT -->
     <section id="page-contact" class="page">
-      <h2 id="contact-header">
-        <span data-letter="C">C</span>
-        <span data-letter="O">O</span>
-        <span data-letter="N">N</span>
-        <span data-letter="T">T</span>
-        <span data-letter="A">A</span>
-        <span data-letter="C">C</span>
-        <span data-letter="T">T</span>
-      </h2>
+        <h2 id="contact-header">
+            <span>C</span><span>O</span><span>N</span><span>T</span><span>A</span><span>C</span><span>T</span>
+        </h2>
 
-      <div class="contact-container">
-        <!-- Contact form -->
-        <form class="contact-form" action="https://formspree.io/f/mjkodgep" method="POST">
-          <label for="email"><i class="fas fa-envelope"></i> Your Email</label>
-          <input type="email" name="email" id="email" placeholder="you@example.com" required>
+        <div class="contact-container">
+            <!-- Contact Form -->
+            <form class="contact-form" action="https://formspree.io/f/mjkodgep" method="POST">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="_replyto" placeholder="Your Email" required>
+                <textarea name="message" placeholder="Your Message" required></textarea>
+                <button type="submit" class="send-btn">Send</button>
+            </form>
 
-          <label for="message"><i class="fas fa-comment-dots"></i> Your Message</label>
-          <textarea name="message" id="message" placeholder="Type your message here..." required></textarea>
-
-          <button type="submit" class="send-btn">SEND</button>
-        </form>
-
-        <!-- Extra contact info -->
-        <div class="contact-info">
-          <h3>Other Ways to Reach Me</h3>
-          <p><i class="fas fa-paper-plane"></i> <a href="mailto:crunchtoonz@gmail.com">crunchtoonz@gmail.com</a></p>
-          <p><i class="fab fa-youtube"></i> <a href="https://www.youtube.com/@crunchyverseee" target="_blank">YouTube</a></p>
-          <p><i class="fab fa-instagram"></i> <a href="https://www.instagram.com/crunchyverse/" target="_blank">Instagram</a></p>
+            <!-- Contact Info / Socials -->
+            <div class="contact-info">
+                <h3>Other Ways to Reach Me</h3>
+                <p>Email me directly: <a href="mailto:your-email@example.com">your-email@example.com</a></p>
+                <p>Follow on Instagram: <a href="https://www.instagram.com/crunchyverse/" target="_blank">@crunchyverse</a></p>
+            </div>
         </div>
-      </div>
     </section>
 
     <!-- SOCIALS -->
@@ -152,23 +198,43 @@
     <!-- ACCOUNT -->
     <section id="page-account" class="page">
         <h2>ACCOUNT</h2>
-        <p>Username: <span id="account-username"></span></p>
-        <input type="text" id="account-bio" placeholder="Your Bio (max 100 chars)">
-        <input type="file" id="account-pfp-upload" accept="image/*"><br>
-        <select id="account-status">
-            <option value="online">Online</option>
-            <option value="away">Away</option>
-            <option value="offline">Offline</option>
-        </select><br><br>
-        <button id="change-username">Change Username</button>
-        <button id="change-password">Change Password</button><br><br>
-        <button id="save-account">Save</button>
-        <button id="sign-out">Sign Out</button>
 
-        <div class="friends-list">
-            <h3>Friends</h3>
-            <ul id="friends-ul"></ul>
-            <button id="add-friend-btn">Add Friend</button>
+        <!-- Editable account settings (self) -->
+        <div id="account-settings-container">
+            <p>Username: <span id="account-username"></span></p>
+            <input type="text" id="account-bio" placeholder="Your Bio (max 100 chars)">
+            <input type="file" id="account-pfp-upload" accept="image/*"><br>
+            <select id="account-status">
+                <option value="online">Online</option>
+                <option value="away">Away</option>
+                <option value="offline">Offline</option>
+            </select><br><br>
+            <button id="change-username">Change Username</button>
+            <button id="change-password">Change Password</button><br><br>
+            <button id="save-account">Save</button>
+            <button id="sign-out">Sign Out</button>
+
+            <div class="friends-list">
+                <h3>Friends</h3>
+                <ul id="friends-ul"></ul>
+
+                <!-- Add Friend Container -->
+                <div id="add-friend-container">
+                    <input type="text" id="add-friend-input" placeholder="Username to add">
+                    <button id="add-friend-btn">Add Friend</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- View profile (others) -->
+        <div id="view-profile-container" style="display:none;">
+            <img id="view-pfp" src="pfp-placeholder.png" alt="Profile Picture"><br>
+            <p><strong>Username:</strong> <span id="view-username"></span></p>
+            <p><strong>Bio:</strong> <span id="view-bio"></span></p>
+            <p><strong>Status:</strong> <span id="view-status"></span></p>
+            <button id="add-friend-view">Add Friend</button>
+            <br><br>
+            <button onclick="switchToPage('chat')">Back to Chat</button>
         </div>
     </section>
 
