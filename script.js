@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const loadingScreen = document.getElementById('loading-screen');
     const usernameChangeCooldown = 300000; // 5 minutes
     let lastUsernameChange = 0;
+    const galleryImgs = document.querySelectorAll('#gallery-container .gallery-img');
 
 
     /* ===== CHAT HISTORY PERSISTENCE ===== */
@@ -46,12 +47,44 @@ document.addEventListener('DOMContentLoaded', () => {
         return out;
     }
 
+    // Load your data from localStorage at the top of the script
+    let data = JSON.parse(localStorage.getItem("accountData")) || {
+        username: "Guest",
+        bio: "",
+        friends: []
+    };
+
+    // Then later when rendering friends:
+    if (data.friends && Array.isArray(data.friends)) {
+        data.friends.forEach(f => {
+            const li = document.createElement('li');
+            li.textContent = f;
+            li.style.cursor = 'pointer';
+            li.addEventListener('click', () => {
+                switchToPage('account');   // Go to account page
+                loadOtherProfile(f);       // Show their profile
+            });
+            friendsUl.appendChild(li);
+        });
+    }
+
+
     function showLoading(nextPage){
         loadingScreen.style.display = 'flex';
+        loadingScreen.style.opacity = '1';
+
+        // Minimum display time
         setTimeout(()=>{ 
-            loadingScreen.style.display='none'; 
-            if(nextPage) switchToPage(nextPage); 
-        }, 500);
+            // Fade out
+            loadingScreen.style.opacity = '0';
+        
+            // Remove from DOM after fade
+            setTimeout(()=>{
+                loadingScreen.style.display='none';
+                if(nextPage) switchToPage(nextPage);
+            }, 800); // matches CSS transition duration
+
+        }, 2000); // 2 seconds minimum
     }
 
     /* ===== PAGE SWITCH ===== */
@@ -89,7 +122,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const users = JSON.parse(localStorage.getItem('users')||'{}');
         const data = users[currentUser];
         if(!data) return;
-        topPfp.src = data.pfp || 'pfp-placeholder.png';
         statusIndicator.className = `status-${data.status||'offline'}`;
     }
 
@@ -137,7 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const friendsUl = document.getElementById('friends-ul');
     const addFriendBtn = document.getElementById('add-friend-btn');
 
-    topPfp.addEventListener('click', ()=>switchToPage('account'));
+    topPfp.addEventListener('click', () => viewProfile(currentUser));
 
     function loadAccountPage(){
         if(!currentUser) return;
@@ -221,6 +253,74 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    function loadOtherProfile(username) {
+        const users = JSON.parse(localStorage.getItem('users')||'{}');
+        const data = users[username];
+        if(!data) return alert('User not found');
+
+        // Hide your own account section
+        document.getElementById('account-username').parentElement.style.display = 'none';
+        document.getElementById('save-account').style.display = 'none';
+        document.getElementById('change-username').style.display = 'none';
+        document.getElementById('change-password').style.display = 'none';
+        document.getElementById('account-pfp-upload').style.display = 'none';
+        document.getElementById('account-bio').style.display = 'none';
+        document.getElementById('account-status').style.display = 'none';
+
+        // Show the view profile container
+        const container = document.getElementById('view-profile-container');
+        container.style.display = 'block';
+        document.getElementById('view-username').textContent = data.username || username;
+        document.getElementById('view-bio').textContent = data.bio || '';
+        document.getElementById('view-pfp').src = data.pfp || 'pfp-placeholder.png';
+        document.getElementById('view-status').textContent = data.status || 'offline';
+    }
+
+    if (data.friends && Array.isArray(data.friends)) {
+        data.friends.forEach(f => {
+            const li = document.createElement('li');
+            li.textContent = f;
+            li.style.cursor = 'pointer';
+            li.addEventListener('click', () => {
+                viewProfile(f);
+            });
+
+            friendsUl.appendChild(li);
+        });
+    }
+
+    function viewProfile(username) {
+        switchToPage("account");
+
+        if (username === currentUser) {
+            // show self account settings
+            document.getElementById("account-settings-container").style.display = "block";
+            document.getElementById("view-profile-container").style.display = "none";
+            document.getElementById("account-username").textContent = currentUser;
+        } else {
+            // show other user’s profile
+            document.getElementById("account-settings-container").style.display = "none";
+            document.getElementById("view-profile-container").style.display = "block";
+
+            document.getElementById("view-username").textContent = username;
+            document.getElementById("view-bio").textContent = users[username]?.bio || "No bio yet";
+            document.getElementById("view-status").textContent = users[username]?.status || "offline";
+
+            // ✅ add-friend button logic
+            const addBtn = document.getElementById("add-friend-view");
+            addBtn.onclick = () => {
+                if (!friends[currentUser]) friends[currentUser] = [];
+                if (!friends[currentUser].includes(username)) {
+                    friends[currentUser].push(username);
+                    alert(username + " added as friend!");
+                    renderFriendsList();
+                } else {
+                    alert(username + " is already your friend.");
+                }
+            };
+        }
+    }
+
     const friendCooldown = 60000;
     let lastFriendRequestTime = 0;
     function canSendFriendRequest(){
@@ -232,15 +332,20 @@ document.addEventListener('DOMContentLoaded', () => {
         lastFriendRequestTime = now;
         return true;
     }
-    addFriendBtn.addEventListener('click',()=>{
+    addFriendBtn.addEventListener('click', () => {
         if(!currentUser) return;
         if(!canSendFriendRequest()) return;
-        const friendName = prompt('Enter username to add:').trim();
-        if(!friendName) return;
+
+        const friendName = document.getElementById('add-friend-input').value.trim();
+        if(!friendName) return alert('Enter a username');
+    
         const users = JSON.parse(localStorage.getItem('users')||'{}');
         if(!users[friendName]) return alert('User not found');
+    
         const data = users[currentUser];
         if(data.friends.includes(friendName)) return alert('Already friends');
+        if(friendName === currentUser) return alert('You cannot add yourself');
+    
         data.friends.push(friendName);
         localStorage.setItem('users', JSON.stringify(users));
         loadFriends();
@@ -253,8 +358,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const chatSend = document.getElementById('chat-send');
     const guestDropdown = document.getElementById('guestPremessages');
 
-    const guestMessages = ['Hello!', 'How are you?', 'Good game!', 'Nice to meet you!'];
-    const bannedWords = ['nigger','fuck','shit','ass','piss','cunt','bitch','nigga','fucker','fuk','nig']; 
+    const guestMessages = ['haii', 'yo', 'wsp?', 'lol', 'LMAO', 'wth', 'bruh', ':3', 'no', 'yes'];
+    const bannedWords = ['nigger','nigga','fucker','fuck','fuk','shit','s.h.i.t','bitch','b1tch','ass','piss','cunt','hoe','ho3','slut','whore',
+    'g4y','gay','dyke','faggot','fag','c0ck','d1ck','penis','vagina','boob','t1ts','pussy','n1gger','n1gga','sh1t','b!tch']; 
     let lastChatMsg = '';
     let lastPasteTime = 0;
 
@@ -272,12 +378,27 @@ document.addEventListener('DOMContentLoaded', () => {
     updateChatUI();
 
     function filterMessage(msg){
-        let filtered = msg.toLowerCase();
-        bannedWords.forEach(word=>{
+        // Normalize leetspeak numbers to letters
+        msg = msg.toLowerCase()
+                 .replace(/4/g,'a')
+                 .replace(/3/g,'e')
+                 .replace(/1/g,'i')
+                 .replace(/0/g,'o')
+                 .replace(/5/g,'s')
+                 .replace(/7/g,'t');
+
+        let filtered = msg;
+        const bannedWords = [
+            'nigger','nigga','fucker','fuck','fuk','shit','bitch','b1tch','ass','piss','cunt','hoe','ho3','slut','whore',
+            'g4y','gay','dyke','faggot','fag','c0ck','d1ck','penis','vagina','boob','t1ts','pussy'
+        ];
+
+        bannedWords.forEach(word => {
             const pattern = word.split('').join('[^a-zA-Z0-9]*');
             const regex = new RegExp(pattern,'gi');
             filtered = filtered.replace(regex,'[censored]');
         });
+
         return filtered;
     }
 
@@ -296,7 +417,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const nameSpan = document.createElement('span');
         nameSpan.classList.add('chat-user');
         nameSpan.textContent = user;
+        nameSpan.style.cursor = 'pointer';
+        nameSpan.style.color = 'dodgerblue';
+        nameSpan.onclick = () => viewProfile(user); // <-- NEW
         div.appendChild(nameSpan);
+
 
         if(replyToUser){
             const replySpan = document.createElement('span');
@@ -366,6 +491,73 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    galleryImgs.forEach(img => {
+        let x = Math.random() * 70; // max left %
+        let y = Math.random() * 70; // max top %
+        img.style.left = x + '%';
+        img.style.top = y + '%';
+
+        let dx = (Math.random() - 0.5) * 0.5;
+        let dy = (Math.random() - 0.5) * 0.5;
+
+        setInterval(() => {
+            let currentX = parseFloat(img.style.left);
+            let currentY = parseFloat(img.style.top);
+
+            if (currentX + dx < 0 || currentX + dx > 70) dx *= -1;
+            if (currentY + dy < 0 || currentY + dy > 70) dy *= -1;
+
+            img.style.left = (currentX + dx) + '%';
+            img.style.top = (currentY + dy) + '%';
+        }, 50);
+    });
+
+
+    const canvas = document.getElementById('code-rain');
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    // Characters to use
+    const chars = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズヅブプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const fontSize = 16;
+    const columns = Math.floor(canvas.width / fontSize);
+
+    // Track y position for each column
+    const drops = Array(columns).fill(1);
+
+    function draw() {
+        // Black semi-transparent background to create trail effect
+        ctx.fillStyle = 'rgba(0,0,0,0.05)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.fillStyle = '#0ff';
+        ctx.font = fontSize + 'px monospace';
+
+        for (let i = 0; i < drops.length; i++) {
+            const text = chars.charAt(Math.floor(Math.random() * chars.length));
+            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+            // Reset drop to top randomly
+            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                drops[i] = 0;
+            }
+
+            drops[i]++;
+        }
+
+        requestAnimationFrame(draw);
+    }
+
+    draw();
+
+    // Resize handling
+    window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    });
+
     /* ===== PASSWORD RESET ===== */
     async function resetPasswordHelper(){
         const uname = prompt('Enter your username:').trim();
@@ -395,4 +587,7 @@ document.addEventListener('DOMContentLoaded', () => {
     /* ===== START HOME PAGE ===== */
     showLoading('home');
 
+    if (/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+        document.body.classList.add('mobile-user');
+    }
 });
