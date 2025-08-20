@@ -177,10 +177,7 @@ a:hover {
 main {
     position: relative;
     z-index: 1;
-    height: 100%;
-    overflow-y: auto;
     padding-top: 180px;
-    scroll-behavior: smooth;
 }
 body {
     cursor: url('cursor.png') 32 32, auto;
@@ -438,58 +435,22 @@ body {
    MOBILE RESPONSIVE
    =========================== */
 @media (max-width: 768px) {
-
-    /* HEADER & NAVIGATION */
-    #header {
-        top: 5px;
-        padding: 0 5px;
-    }
-    #welcome-text {
-        font-size: 2rem;
-        text-align: center;
-    }
+    main {
+        padding-top: 120px; /* smaller header on mobile */
+        }
+    /* NAVIGATION */
     #nav-buttons {
         flex-direction: column;
-        gap: 6px;
-        margin-top: 8px;
+        gap: 8px;
     }
     .nav-item {
-        padding: 6px 10px;
+        padding: 6px 12px;
         font-size: 0.9rem;
     }
 
-    /* LOGIN / PROFILE */
-    #login-profile {
-        position: relative;
-        top: auto;
-        right: auto;
-        width: 95%;
-        margin: 10px auto;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 5px;
-    }
-    #login-profile input {
-        width: 40%;
-        font-size: 0.8rem;
-        padding: 3px 5px;
-    }
-    #login-profile button {
-        padding: 3px 6px;
-        font-size: 0.8rem;
-    }
-    #login-profile img {
-        width: 28px;
-        height: 28px;
-    }
-    #status-indicator {
-        width: 10px;
-        height: 10px;
-    }
-
-    /* MAIN CONTENT */
-    main {
-        padding-top: 10px;
+    /* HEADER */
+    #welcome-text {
+        font-size: 2rem;
     }
 
     /* UPDATES FEED */
@@ -497,7 +458,7 @@ body {
         gap: 15px;
     }
     .update-card {
-        padding: 10px 12px;
+        padding: 12px 15px;
         font-size: 0.9rem;
     }
     .update-card h3 {
@@ -506,31 +467,28 @@ body {
 
     /* CHAT */
     #chat-wrapper {
-        height: 180px;
-        font-size: 0.8rem;
+        height: 200px;
+        font-size: 0.85rem;
     }
     #chat-input {
         width: 60%;
-        font-size: 0.8rem;
-        margin-bottom: 5px;
     }
     #chat-send {
-        width: 35%;
-        padding: 4px 6px;
-        font-size: 0.75rem;
+        padding: 4px 8px;
+        font-size: 0.8rem;
     }
 
     /* CONTACT PAGE */
     .contact-container {
         flex-direction: column;
-        gap: 15px;
+        gap: 20px;
     }
     .contact-form, .contact-info {
         width: 100%;
-        padding: 12px;
+        padding: 15px;
     }
     #contact-header {
-        font-size: 1.6rem;
+        font-size: 1.8rem;
         text-align: center;
         flex-wrap: wrap;
     }
@@ -540,7 +498,6 @@ body {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        gap: 8px;
         height: auto;
     }
     .gallery-img {
@@ -556,34 +513,12 @@ body {
         margin: 10px auto;
     }
     .title-bar {
-        font-size: 0.85rem;
-        padding: 4px 6px;
+        font-size: 0.9rem;
+        padding: 4px 8px;
     }
     .window-content {
-        font-size: 0.8rem;
-        padding: 6px;
-    }
-
-    /* ACCOUNT / FRIENDS LIST */
-    #account-settings-container, #view-profile-container {
-        width: 95%;
-        margin: 10px auto;
+        padding: 8px;
         font-size: 0.85rem;
-    }
-    #account-settings-container input,
-    #account-settings-container select,
-    #account-settings-container button {
-        width: 48%;
-        margin-bottom: 5px;
-        font-size: 0.8rem;
-    }
-    .friends-list ul {
-        padding-left: 0;
-        font-size: 0.85rem;
-    }
-    #add-friend-container input, #add-friend-container button {
-        width: 48%;
-        margin-bottom: 5px;
     }
 }
 
@@ -601,12 +536,4 @@ body.mobile-user .gallery-img {
     width: 45%;
     position: relative;
 }
-body.mobile-user #login-profile {
-    flex-wrap: wrap;
-    justify-content: center;
-    width: 95%;
-    margin: 10px auto;
-}
-
-
 
