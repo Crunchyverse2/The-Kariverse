@@ -435,68 +435,67 @@ body {
 }
 
 /* ===========================
-   MOBILE RESPONSIVE
+   MOBILE / SMALL SCREENS
    =========================== */
 @media (max-width: 768px) {
-    /* NAVIGATION */
+    /* HEADER & NAV */
+    #welcome-text {
+        font-size: 1.8rem;
+    }
     #nav-buttons {
         flex-direction: column;
-        gap: 8px;
+        gap: 6px;
+        justify-content: center;
     }
     .nav-item {
-        padding: 6px 12px;
-        font-size: 0.9rem;
+        padding: 5px 10px;
+        font-size: 0.85rem;
+        text-align: center;
     }
 
-    /* HEADER */
-    #welcome-text {
-        font-size: 2rem;
+    /* LOGIN / PROFILE */
+    #login-profile {
+        position: relative;
+        top: auto;
+        right: auto;
+        flex-wrap: wrap;
+        gap: 4px;
+        margin: 10px 0;
+        justify-content: center;
     }
+    #login-profile input {
+        width: 70px;
+        font-size: 0.7rem;
+    }
+    #login-profile button {
+        font-size: 0.7rem;
+        padding: 3px 5px;
+    }
+    #login-profile img { width: 28px; height: 28px; }
+    #status-indicator { width: 8px; height: 8px; }
 
     /* MAIN CONTENT */
-    main {
-        padding-top: 120px;
-    }
+    main { padding-top: 140px; }
 
     /* UPDATES FEED */
     #updates-feed {
-        gap: 15px;
+        gap: 12px;
     }
     .update-card {
-        padding: 12px 15px;
-        font-size: 0.9rem;
-    }
-    .update-card h3 {
-        font-size: 1rem;
-    }
-
-    /* CHAT */
-    #chat-wrapper {
-        height: 200px;
+        padding: 10px 12px;
         font-size: 0.85rem;
     }
-    #chat-input {
-        width: 60%;
-    }
-    #chat-send {
-        padding: 4px 8px;
-        font-size: 0.8rem;
-    }
+    .update-card h3 { font-size: 0.95rem; }
+
+    /* CHAT */
+    #chat-wrapper { height: 180px; font-size: 0.8rem; }
+    #chat-input { width: 60%; font-size: 0.8rem; }
+    #chat-send { padding: 4px 8px; font-size: 0.75rem; }
 
     /* CONTACT PAGE */
-    .contact-container {
-        flex-direction: column;
-        gap: 20px;
-    }
-    .contact-form, .contact-info {
-        width: 100%;
-        padding: 15px;
-    }
-    #contact-header {
-        font-size: 1.8rem;
-        text-align: center;
-        flex-wrap: wrap;
-    }
+    .contact-container { flex-direction: column; gap: 15px; }
+    .contact-form, .contact-info { width: 100%; padding: 12px; }
+    #contact-header { font-size: 1.6rem; flex-wrap: wrap; text-align: center; }
 
     /* GALLERY */
     #gallery-container {
@@ -504,11 +503,11 @@ body {
         flex-wrap: wrap;
         justify-content: center;
         height: auto;
+        gap: 5%;
     }
     .gallery-img {
         position: relative;
-        width: 45%;
-        height: auto;
+        width: 90%;
         margin-bottom: 10px;
     }
 
@@ -517,28 +516,23 @@ body {
         width: 95%;
         margin: 10px auto;
     }
-    .title-bar {
-        font-size: 0.9rem;
-        padding: 4px 8px;
-    }
-    .window-content {
-        padding: 8px;
-        font-size: 0.85rem;
-    }
+    .title-bar { font-size: 0.85rem; padding: 4px 8px; }
+    .window-content { padding: 8px; font-size: 0.8rem; }
 }
 
-/* FORCE MOBILE LAYOUT IF DETECTED (userAgent) */
-body.mobile-user #nav-buttons {
-    flex-direction: column;
-    gap: 8px;
+/* EXTRA SMALL PHONES (e.g., 360px width) */
+@media (max-width: 400px) {
+    #welcome-text { font-size: 1.5rem; }
+    .nav-item { font-size: 0.75rem; padding: 4px 8px; }
+    #login-profile input { width: 60px; font-size: 0.65rem; }
+    #login-profile button { font-size: 0.65rem; padding: 2px 4px; }
+    .update-card { font-size: 0.8rem; padding: 8px 10px; }
+    .update-card h3 { font-size: 0.9rem; }
+    #chat-wrapper { height: 150px; font-size: 0.75rem; }
+    #chat-input { width: 55%; font-size: 0.75rem; }
+    #chat-send { padding: 3px 6px; font-size: 0.7rem; }
+    .gallery-img { width: 95%; }
 }
-body.mobile-user #gallery-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-body.mobile-user .gallery-img {
-    width: 45%;
-    position: relative;
-}
+
+
 
