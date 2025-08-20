@@ -14,6 +14,11 @@ document.addEventListener('DOMContentLoaded', () => {
     let lastUsernameChange = 0;
     const galleryImgs = document.querySelectorAll('#gallery-container .gallery-img');
 
+    if (/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+        document.body.classList.add('mobile-user');
+    }
+
+
 
     /* ===== CHAT HISTORY PERSISTENCE ===== */
     let chatHistory = JSON.parse(localStorage.getItem('chatHistory') || '[]');
@@ -586,8 +591,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* ===== START HOME PAGE ===== */
     showLoading('home');
-
-    if (/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-        document.body.classList.add('mobile-user');
-    }
 });
